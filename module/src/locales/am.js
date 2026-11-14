@@ -1,0 +1,263 @@
+export const am = {
+  meta: {
+    code: 'am',
+    name: 'አማርኛ',
+    dir: 'ltr'
+  },
+  component: {
+    loading: 'የምዝገባ ቅጹን በመጫን ላይ...',
+    error: 'ስህተት ተፈጥሯል። እባክዎ ገጹን ያድሱ።',
+    lowLiteracyToggle: 'ቀላል ቃላት እና ምስሎች',
+    voiceToggleOn: 'ድምፅ፡ በርቷል',
+    voiceToggleOff: 'ድምፅ፡ ጠፍቷል',
+    speedLabel: 'ፍጥነት',
+    speedSlow: 'ቀስ ያለ',
+    speedNormal: 'መደበኛ',
+    speedFast: 'ፈጣን',
+    listen: 'አዳምጥ',
+    pause: 'አቁም',
+    resume: 'ቀጥል',
+    stop: 'ዝጋ',
+    speakAnswer: 'መልስዎን ይናገሩ',
+    listening: 'በማዳመጥ ላይ... አሁን ይናገሩ',
+    heardPrefix: 'የተሰማው፡',
+    readBack: 'መልሰህ አንብብ',
+    recordVoiceNote: 'የድምፅ መልእክት ይቅረጹ',
+    stopRecording: 'መቅረጽ አቁም',
+    recordingActive: 'ድምፅ በመቅረጽ ላይ — ሲጨርሱ አቁም የሚለውን ይጫኑ',
+    voiceNoteSaved: 'የድምፅ መልእክት ተያይዟል',
+    playVoiceNote: 'የድምፅ መልእክቱን አጫውት',
+    unitKb: 'ኪ.ባ',
+    voiceUnavailable: 'በዚህ መሣሪያ ላይ ንግግር ወደ ጽሁፍ አይሰራም። መጻፍ ወይም የድምፅ መልእክት መቅረጽ ይችላሉ።',
+    noAmharicVoiceNotice: 'በዚህ ስልክ ላይ የአማርኛ ንግግር ድምፅ አልተጫነም። ሁሉም ጽሁፎች ይሰራሉ፤ ወይም የድምፅ መልእክት መቅረጽ ይችላሉ።',
+    clearDraft: 'እንደገና ጀምር',
+    offlineBanner: 'ኢንተርኔት የለም። መልሶችዎ በዚህ ስልክ ላይ ተቀምጠዋል፤ ኢንተርኔት ሲመጣ ይላካሉ።',
+    pendingSync: 'በዚህ ስልክ ላይ ተቀምጧል። ኢንተርኔት ሲኖር ይላካል።',
+    syncedSuccess: 'ኢንተርኔት ስለተገኘ የተቀመጡ መልሶችዎ ተልከዋል።',
+    consentLabel: 'መገለጫዬን ለመፍጠር እነዚህን የምዝገባ መረጃዎች ለመድረኩ ለማጋራት እስማማለሁ።',
+    assistBarTitle: 'ይህንን ቅጽ እንዴት መጠቀም ይፈልጋሉ? (አማራጭ — ወዲያውኑ ይቀየራል)',
+    assistPresets: {
+      readToMe: 'በድምፅ አንብብልኝ',
+      bigTextContrast: 'ትልቅ ጽሁፍ እና ከፍተኛ ንጽጽር',
+      simpleWords: 'ቀላል ቃላት እና ምስሎች',
+      noSoundVisual: 'ድምፅ አያስፈልግም (በጽሁፍ እና ምስል)'
+    }
+  },
+  navigation: {
+    back: 'ተመለስ',
+    continue: 'ቀጥል',
+    skip: 'ዝለል',
+    submit: 'አስገባ'
+  },
+  progress: {
+    question: 'ጥያቄ {current} ከ {total}',
+    step: 'እርምጃ {current} ከ {total}'
+  },
+  validation: {
+    required: 'ይህ መረጃ ያስፈልጋል።',
+    invalidPhone: 'እባክዎ ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09...፣ 07... ወይም +251...)።',
+    invalidEmail: 'እባክዎ ትክክለኛ ኢሜይል አድራሻ ያስገቡ።',
+    consentRequired: 'ከማስገባትዎ በፊት እባክዎ ፈቃድዎን ለማረጋገጥ ሳጥኑን ይምረጡ።'
+  },
+  storage: {
+    saved: 'በዚህ ስልክ ላይ ተቀምጧል።',
+    restored: 'ከዚህ ቀደም የሞሉትን መልሶች ከስልክዎ ላይ መልሰናል።'
+  },
+  flows: {
+    registration: {
+      name: {
+        label: 'ሙሉ ስምዎ ማን ነው?',
+        simpleLabel: 'ስምዎ',
+        description: 'በመማሪያ መገለጫዎ ላይ እንዲታይ የሚፈልጉትን ስም ያስገቡ።',
+        simpleDescription: 'የእርስዎን እና የአባትዎን ስም ይጻፉ ወይም ይናገሩ።',
+        placeholder: 'ለምሳሌ፡ አበበ ቢቂላ',
+        voiceText: 'ጥያቄ 1። ሙሉ ስምዎ ማን ነው? ስምዎን መጻፍ ወይም መልስዎን ይናገሩ የሚለውን መጫን ይችላሉ።'
+      },
+      phone: {
+        label: 'ስልክ ቁጥርዎ ስንት ነው?',
+        simpleLabel: 'ስልክ ቁጥር',
+        description: 'በ 09፣ በ 07 ወይም በ +251 የሚጀምሩ የኢትዮጵያ ስልክ ቁጥሮች ይቀበላሉ።',
+        simpleDescription: 'ምሳሌ፡ 0912345678 ወይም 0712345678።',
+        placeholder: '0912345678',
+        voiceText: 'ስልክ ቁጥርዎ ስንት ነው? በ 09፣ በ 07 ወይም በ +251 የሚጀምሩ ቁጥሮችን ያስገቡ።'
+      },
+      identity: {
+        label: 'ማንነትዎን እንዴት ማረጋገጥ ይፈልጋሉ?',
+        simpleLabel: 'የመታወቂያ አማራጭ',
+        description: 'አሁን መታወቂያ ከሌለዎት በአጋር ድርጅት በኩል የሚለውን ይምረጡ። ምዝገባውን በተሳካ ሁኔታ መጨረስ ይችላሉ።',
+        simpleDescription: 'ያለዎትን መታወቂያ ይምረጡ ወይም ከሌለዎት የአጋር ድጋፍን ይምረጡ።',
+        voiceText: 'ማንነትዎን እንዴት ማረጋገጥ ይፈልጋሉ? ብሔራዊ መታወቂያ፣ የስደተኛ መታወቂያ፣ ሌላ ሰነድ፣ ወይም ሰነድ የለኝም በአጋር ድርጅት ይላኩኝ የሚለውን ይምረጡ።',
+        options: {
+          national_id: {
+            label: 'ብሔራዊ መታወቂያ (ፋይዳ / ቀበሌ)',
+            simpleLabel: 'ብሔራዊ መታወቂያ',
+            description: 'በመንግስት የተሰጠ ብሔራዊ ወይም የቀበሌ መታወቂያ'
+          },
+          refugee_id: {
+            label: 'የስደተኛ መታወቂያ',
+            simpleLabel: 'የስደተኛ መታወቂያ',
+            description: 'የዩኤንኤችሲአር ወይም የስደተኞች ኤጀንሲ ሰነድ'
+          },
+          other: {
+            label: 'ሌላ ሰነድ',
+            simpleLabel: 'ሌላ መታወቂያ',
+            description: 'ፓስፖርት፣ የተማሪ መታወቂያ ወይም መንጃ ፈቃድ'
+          },
+          partner_referral: {
+            label: 'ሰነድ የለኝም — በአጋር ድርጅት በኩል ይላኩኝ',
+            simpleLabel: 'መታወቂያ የለኝም — አጋር ያገናኙኝ',
+            description: 'አሁን ምዝገባውን ጨርሰው ከአካባቢው አጋር ድርጅት ጋር ይገናኙ'
+          }
+        }
+      },
+      support: {
+        label: 'መማር ወይም መሥራት ቀላል እንዲሆንልዎ ምን ይረዳዎታል? (አማራጭ)',
+        simpleLabel: 'ምን ይረዳዎታል? (አማራጭ)',
+        description: 'በቀላል ቋንቋ የሚያስፈልግዎትን ይምረጡ። ምርጫዎ በሚስጥር ይያዛል፤ ለአሰሪዎች በፍጹም አይጋራም።',
+        simpleDescription: 'የሚረዳዎትን ይምረጡ። ይህ በሚስጥር ይያዛል።',
+        voiceText: 'አማራጭ ጥያቄ። መማር ወይም መሥራት ቀላል እንዲሆንልዎ ምን ይረዳዎታል? በድምፅ ማንበብ፣ ትልቅ ጽሁፍ፣ የቪዲዮ ጽሁፍ፣ የምልክት ቋንቋ፣ አስተርጓሚ ወይም ተጨማሪ ጊዜ መምረጥ ይችላሉ።',
+        options: {
+          screen_reader: {
+            label: 'ሁሉንም ነገር በድምፅ አንብብልኝ (ስክሪን አንባቢ)',
+            simpleLabel: 'ጽሁፉን አንብብልኝ',
+            description: 'ግልጽ የድምፅ መሪ እና የእርምጃ ማሳወቂያ'
+          },
+          large_text: {
+            label: 'ጽሁፉን ተለቅ እና ግልጽ አድርግልኝ (ትልቅ ጽሁፍ)',
+            simpleLabel: 'ትልቅ እና ግልጽ ጽሁፍ',
+            description: 'ትልቅ ፊደላት እና ጠንካራ የቀለም ንጽጽር'
+          },
+          captions: {
+            label: 'በቪዲዮዎች ላይ የጽሁፍ መግለጫ አሳየኝ (Captions)',
+            simpleLabel: 'በቪዲዮ ላይ ጽሁፍ',
+            description: 'በትምህርት ቪዲዮዎች ላይ የጽሁፍ መግለጫ'
+          },
+          sign_language: {
+            label: 'የኢትዮጵያ የምልክት ቋንቋ መስኮት ወይም አስተርጓሚ',
+            simpleLabel: 'የምልክት ቋንቋ',
+            description: 'የምልክት ቋንቋ ቪዲዮ ወይም አስተርጓሚ'
+          },
+          interpreter_am: {
+            label: 'በአማርኛ / በአካባቢ ቋንቋ አስተርጓሚ',
+            simpleLabel: 'የቋንቋ አስተርጓሚ',
+            description: 'የቋንቋ ትርጉም ድጋፍ'
+          },
+          more_time: {
+            label: 'ያለ ጊዜ ገደብ ተጨማሪ ጊዜ ስጠኝ',
+            simpleLabel: 'ተጨማሪ ጊዜ / ያለ ችኮላ',
+            description: 'ያለ ጊዜ ገደብ እና ተጨማሪ የፈተና ጊዜ'
+          },
+          prefer_not_to_say: {
+            label: 'መናገር አልፈልግም',
+            simpleLabel: 'መናገር አልፈልግም',
+            description: 'የድጋፍ ምርጫ ሳያጋሩ ይቀጥሉ'
+          }
+        }
+      }
+    },
+    signin: {
+      method: {
+        label: 'እንዴት መግባት ይፈልጋሉ?',
+        simpleLabel: 'መግቢያ መንገድ ይምረጡ',
+        description: 'በስልክ ቁጥርዎ ወይም በአጋር ሪፈራል ኮድዎ ይግቡ።',
+        simpleDescription: 'ስልክ ቁጥር ወይም ሪፈራል ኮድ ይምረጡ።',
+        voiceText: 'እንዴት መግባት ይፈልጋሉ? በስልክ ቁጥር ወይም በአጋር ሪፈራል ኮድ መግባት ይችላሉ።',
+        options: {
+          phone: {
+            label: 'በስልክ ቁጥሬ መግባት እፈልጋለሁ',
+            simpleLabel: 'በስልክ ቁጥር ግባ',
+            description: 'የተመዘገቡበትን 09...፣ 07... ወይም +251... ቁጥር ይጠቀሙ'
+          },
+          referral_code: {
+            label: 'በአጋር ሪፈራል ኮድ መግባት እፈልጋለሁ',
+            simpleLabel: 'በሪፈራል ኮድ ግባ',
+            description: 'ሲመዘገቡ የተሰጠዎትን DB-REF ኮድ ይጠቀሙ'
+          }
+        }
+      },
+      phone: {
+        label: 'የተመዘገቡበትን ስልክ ቁጥር ያስገቡ',
+        simpleLabel: 'ስልክ ቁጥርዎ',
+        description: '09...፣ 07... ወይም +251... ይቀበላል።',
+        simpleDescription: 'ምሳሌ፡ 0912345678',
+        placeholder: '0912345678',
+        voiceText: 'የተመዘገቡበትን የኢትዮጵያ ስልክ ቁጥር ያስገቡ ወይም ይናገሩ።'
+      },
+      referralCode: {
+        label: 'የአጋር ሪፈራል ኮድዎን ያስገቡ (በሪፈራል የሚገቡ ከሆነ)',
+        simpleLabel: 'ሪፈራል ኮድ (አማራጭ)',
+        description: 'በስልክ ቁጥር ብቻ የሚገቡ ከሆነ ባዶ ይተዉት።',
+        simpleDescription: 'ምሳሌ፡ DB-REF-1234ABCD',
+        placeholder: 'DB-REF-XXXXXXXX',
+        voiceText: 'የአጋር ሪፈራል ኮድዎን ያስገቡ ወይም በስልክ ቁጥር የሚገቡ ከሆነ ባዶ ይተዉት።'
+      }
+    },
+    'profile-edit': {
+      name: {
+        label: 'ሙሉ ስምዎን ያድሱ (ያለውን ለማቆየት ባዶ ይተዉት)',
+        simpleLabel: 'ስምዎን ይቀይሩ',
+        description: 'የቀየሩት መረጃ ብቻ ይታደሳል።',
+        simpleDescription: 'ስምዎን መቀየር ካልፈለጉ ባዶ ይተዉት።',
+        placeholder: 'አዲስ ሙሉ ስም ያስገቡ',
+        voiceText: 'ሙሉ ስምዎን ያድሱ ወይም ያለውን ለማቆየት ባዶ ይተዉት።'
+      },
+      phone: {
+        label: 'ስልክ ቁጥርዎን ያድሱ (ያለውን ለማቆየት ባዶ ይተዉት)',
+        simpleLabel: 'ስልክ ቁጥር ይቀይሩ',
+        description: '09...፣ 07... ወይም +251... ይቀበላል።',
+        simpleDescription: 'ያለውን ቁጥር ለማቆየት ባዶ ይተዉት።',
+        placeholder: '0912345678',
+        voiceText: 'ስልክ ቁጥርዎን ያድሱ ወይም ያለውን ለማቆየት ባዶ ይተዉት።'
+      }
+    },
+    'job-apply': {
+      experience: {
+        label: 'ስንት ዓመት የስራ ልምድ አለዎት?',
+        simpleLabel: 'የስራ ልምድ',
+        description: 'ከልምድዎ ጋር የሚስማማውን ይምረጡ።',
+        simpleDescription: 'ለምን ያህል ጊዜ ሰርተዋል?',
+        voiceText: 'ስንት ዓመት የስራ ልምድ አለዎት?',
+        options: {
+          '0-1': { label: 'ከ 1 ዓመት በታች', simpleLabel: 'ከ 1 ዓመት በታች', description: 'አዲስ ጀማሪ ወይም ተመራቂ' },
+          '1-3': { label: 'ከ 1 እስከ 3 ዓመት', simpleLabel: '1–3 ዓመት', description: 'የመጀመሪያ ደረጃ ልምድ' },
+          '3-5': { label: 'ከ 3 እስከ 5 ዓመት', simpleLabel: '3–5 ዓመት', description: 'መካከለኛ ደረጃ ልምድ' },
+          '5+': { label: 'ከ 5 ዓመት በላይ', simpleLabel: '5+ ዓመት', description: 'ከፍተኛ ልምድ' }
+        }
+      },
+      education: {
+        label: 'ከፍተኛው የትምህርት ደረጃዎ ምንድነው?',
+        simpleLabel: 'የትምህርት ደረጃ',
+        description: 'መደበኛ ወይም የሙያ ስልጠና።',
+        simpleDescription: 'የጨረሱትን ከፍተኛ ትምህርት ይምረጡ።',
+        voiceText: 'ከፍተኛው የትምህርት ደረጃዎ ምንድነው?',
+        options: {
+          high_school: { label: 'ሁለተኛ ደረጃ ትምህርት', simpleLabel: 'ሁለተኛ ደረጃ', description: 'የሁለተኛ ደረጃ ትምህርት ያጠናቀቀ' },
+          tvet_diploma: { label: 'ቴክኒክና ሙያ / ዲፕሎማ', simpleLabel: 'ዲፕሎማ / ቴክኒክ', description: 'የቴክኒክ ወይም የሙያ ሰርተፊኬት' },
+          degree: { label: 'የመጀመሪያ ዲግሪ', simpleLabel: 'የዩኒቨርሲቲ ዲግሪ', description: 'የመጀመሪያ የዩኒቨርሲቲ ዲግሪ' },
+          masters: { label: 'ማስተርስ ዲግሪ ወይም ከዚያ በላይ', simpleLabel: 'ማስተርስ ዲግሪ', description: 'የድህረ ምረቃ ትምህርት' }
+        }
+      },
+      note: {
+        label: 'ለአሰሪው ተጨማሪ መልእክት አለዎት? (አማራጭ)',
+        simpleLabel: 'አጭር መልእክት (አማራጭ)',
+        description: 'የግል የተደራሽነት ድጋፍ ምርጫዎችዎ ለአሰሪው አይላኩም።',
+        simpleDescription: 'አጭር ማስታወሻ ይጻፉ ወይም ይናገሩ። የግል ድጋፍ ምርጫዎ አይጋራም።',
+        placeholder: 'ስለ ክህሎትዎ ወይም ዝግጁነትዎ አማራጭ መልእክት',
+        voiceText: 'አማራጭ። ለአሰሪው የሚነግሩት ተጨማሪ ነገር አለ? የግል ድጋፍ ምርጫዎችዎ አይጋሩም።'
+      }
+    }
+  },
+  completion: {
+    title: 'ምዝገባው ተጠናቋል',
+    signinTitle: 'የመግቢያ ጥያቄ ተዘጋጅቷል',
+    signinMessage: 'የመግቢያ መረጃዎ ወደ መድረኩ ተላልፏል።',
+    message: 'መረጃዎ ለመድረኩ በተሳካ ሁኔታ ተላልፏል።',
+    referralTitle: 'የአጋር ሪፈራል ተፈጥሯል',
+    referralMessage: 'ያለ መታወቂያ ሰነድ ምዝገባዎ ተሳክቷል። ማረጋገጫውን ለመጨረስ ይህንን ኮድ ለአጋር ማዕከል ያሳዩ፡',
+    recordedAtLabel: 'የተመዘገበበት ቀን፡',
+    nextSteps: 'ይህን ገጽ በደህና መዝጋት ወይም ወደ መነሻ ገጽዎ መቀጠል ይችላሉ።',
+    restart: 'አዲስ ምዝገባ ጀምር'
+  }
+};
+
+export default am;

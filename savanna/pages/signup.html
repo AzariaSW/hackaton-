@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="am">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessible Sign Up | Savanna</title>
+    <link rel="stylesheet" href="../assets/css/typekit-xgz4ilr-css.css" />
+    <link rel="stylesheet" href="../assets/css/application_alx.css" media="all" />
+    <link rel="stylesheet" href="../assets/css/app.css" media="all" />
+    <link rel="stylesheet" href="../assets/css/static-page.css" media="all" />
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: #002b56;
+        color: #ffffff;
+        padding: 0.75rem 1rem;
+        z-index: 2000;
+        font-weight: 700;
+      }
+      .skip-link:focus {
+        left: 0.75rem;
+        top: 0.75rem;
+        outline: 3px solid #f5a300;
+      }
+      .db-host-shell {
+        padding: 5.5rem 1.25rem 3rem;
+        max-width: 56rem;
+        margin: 0 auto;
+      }
+      .db-host-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+      :focus-visible {
+        outline: 3px solid #f5a300;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body class="signed_in env_development notranslate" data-theme-suffix="_alx">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="header d-flex align-items-center position-fixed top-0 w-100 bg-white border-bottom" style="z-index: 1000">
+      <div class="header-left align-items-center d-flex px-3 w-100 justify-content-between">
+        <a class="logo-container p-1 d-inline-flex align-items-center gap-2 text-decoration-none" href="homepage-v1-paced.html">
+          <span class="logo d-inline-block" style="background-image: url('../assets/img/holberton-logo-full-alx.png'); width: 110px; height: 34px; background-size: contain; background-repeat: no-repeat;" aria-hidden="true"></span>
+          <span class="fw-semibold text-dark">Savanna Learner Onboarding</span>
+        </a>
+        <nav aria-label="Savanna module navigation" class="d-flex flex-wrap gap-2">
+          <a class="btn btn-outline-secondary btn-sm" href="homepage-v1-paced.html">Home</a>
+          <a class="btn btn-outline-secondary btn-sm" href="profile.html">My Profile</a>
+          <a class="btn btn-outline-secondary btn-sm" href="jobs.html">Jobs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="db-host-shell">
+      <div class="db-host-bar">
+        <div>
+          <h1 class="h3 mb-1">Create Your Savanna Account</h1>
+          <p class="text-body-secondary mb-0">Mounted inside Savanna starter CSS using one <code>&lt;db-signup&gt;</code> tag.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label for="savanna-lang" class="form-label mb-0 fw-semibold">Language:</label>
+          <select id="savanna-lang" class="form-select" style="width: auto; min-height: 2.75rem;">
+            <option value="am" selected>አማርኛ (am)</option>
+            <option value="en">English (en)</option>
+          </select>
+        </div>
+      </div>
+
+      <script src="/module/db-signup.js" defer></script>
+      <db-signup id="savanna-signup" lang="am" mode="registration" api="/api"></db-signup>
+
+      <div id="savanna-redirect-status" class="alert alert-success mt-3 d-none" role="status"></div>
+    </main>
+
+    <script>
+      const signupEl = document.getElementById('savanna-signup');
+      const langSelect = document.getElementById('savanna-lang');
+      const statusBox = document.getElementById('savanna-redirect-status');
+
+      langSelect.addEventListener('change', () => {
+        const lang = langSelect.value;
+        document.documentElement.lang = lang;
+        signupEl.setAttribute('lang', lang);
+      });
+
+      document.addEventListener('db-signup:done', (e) => {
+        try {
+          sessionStorage.setItem('savanna:learner', JSON.stringify(e.detail));
+        } catch {}
+        statusBox.textContent = 'Registration complete! Taking you to your Savanna learner homepage...';
+        statusBox.classList.remove('d-none');
+        window.location.href = 'homepage-v1-paced.html';
+      });
+    </script>
+  </body>
+</html>

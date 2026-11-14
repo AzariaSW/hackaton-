@@ -1,0 +1,64 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      CORS_ORIGIN: "*"
+      DATABASE_URL: postgres://accessibility_app:local_db_password@postgres:5432/accessibility_db
+      API_KEY_PEPPER: ${API_KEY_PEPPER:-dev-accessibility-onboarding-pepper-key-32bytes!}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: accessibility_app
+      POSTGRES_PASSWORD: local_db_password
+      POSTGRES_DB: accessibility_db
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U accessibility_app -d accessibility_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "local_redis_password"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "local_redis_password", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: app
+      RABBITMQ_DEFAULT_PASS: local_rabbit_password
+    ports:
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:

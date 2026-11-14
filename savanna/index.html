@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Savanna static pages</title>
+    <link rel="stylesheet" href="assets/css/application_alx.css" media="all" />
+    <link rel="stylesheet" href="assets/css/app.css" media="all" />
+    <link rel="stylesheet" href="assets/css/a11y-enhancements.css" media="all" />
+    <style>
+      body { padding: 2rem 1rem; }
+      .page-card { max-width: 46rem; }
+    </style>
+  </head>
+  <body class="bg-body-tertiary">
+    <a class="db-skip-link" href="#main-content">Skip to main content</a>
+    <main id="main-content" tabindex="-1" class="container-lg">
+      <h1 class="mb-1">Savanna static pages</h1>
+      <p class="text-body-secondary mb-4">
+        Learner pages frozen from the local dev app alongside the Digital Bridge accessible onboarding,
+        profile, and Career Gateway pages. All cards and navigation controls support keyboard navigation and visible focus indicators.
+      </p>
+
+      <div class="vstack gap-3 page-card">
+        <article class="card homepage-card" role="region" aria-labelledby="card-paced">
+          <div class="card-body">
+            <h2 id="card-paced" class="h5 card-title"><a href="pages/homepage-v1-paced.html">Learner homepage — v1 paced</a></h2>
+            <p class="card-text mb-0">
+              Björn Sibanda, week 10 of <strong>WR 100: Fundamentals of Effective Communication</strong>
+              (cohort F26-SEM-16W, 31&nbsp;Aug – 20&nbsp;Dec 2026). Courses dropdown, keyboard-navigable week strip with all
+              16 weeks preloaded, “continue where you left off”, immediate deliverables, period
+              progress, overall score and upcoming events.
+            </p>
+          </div>
+        </article>
+
+        <article class="card homepage-card" role="region" aria-labelledby="card-self-paced">
+          <div class="card-body">
+            <h2 id="card-self-paced" class="h5 card-title"><a href="pages/homepage-v1-self-paced.html">Learner homepage — v1 self-paced</a></h2>
+            <p class="card-text mb-0">
+              Amara Nwosu, module 1 of 3 complete on <strong>VA-1: VA Foundations &amp; Professional Identity</strong>.
+              Course-progression gauge against the 70% graduation threshold, keyboard-accessible module
+              tabs, the programme modal preloaded, pacing boost tooltip, and upcoming events.
+            </p>
+          </div>
+        </article>
+
+        <article class="card homepage-card" role="region" aria-labelledby="card-concept">
+          <div class="card-body">
+            <h2 id="card-concept" class="h5 card-title"><a href="pages/concept-with-navigation.html">Concept page with curriculum navigation</a></h2>
+            <p class="card-text mb-0">
+              “The Future of the VA Industry” — a module&nbsp;2 concept with the navigation panel beside it,
+              showing read, current and unread activities, plus the full set of authored content blocks.
+            </p>
+          </div>
+        </article>
+
+        <article class="card homepage-card" role="region" aria-labelledby="card-db-pages">
+          <div class="card-body">
+            <h2 id="card-db-pages" class="h5 card-title">Digital Bridge Accessible Onboarding &amp; Career Gateway</h2>
+            <p class="card-text mb-3">
+              Embedded <code>&lt;db-signup&gt;</code> module pages wired inside Savanna without modifying core stylesheets.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-primary" href="pages/signup.html">Accessible Sign Up</a>
+              <a class="btn btn-outline-primary" href="pages/profile.html">My Profile</a>
+              <a class="btn btn-outline-primary" href="pages/jobs.html">Career Gateway (Jobs)</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="mt-4 text-body-secondary">
+        See <code>README.md</code> for what is real, what was substituted, and how to regenerate.
+      </p>
+    </main>
+  </body>
+</html>

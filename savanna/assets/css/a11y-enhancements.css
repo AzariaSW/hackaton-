@@ -1,0 +1,175 @@
+/* Accessibility & Keyboard Navigation Enhancements for Savanna Learner Pages
+ * Leaves Savanna's original application_alx.css and app.css untouched.
+ */
+
+/* Skip to main content link */
+.db-skip-link {
+  position: fixed;
+  top: -120px;
+  left: 0.75rem;
+  z-index: 3000;
+  background: #002b56;
+  color: #ffffff;
+  padding: 0.75rem 1.125rem;
+  border-radius: 0.375rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid #f5a300;
+  transition: top 0.12s ease;
+}
+
+.db-skip-link:focus,
+.db-skip-link:focus-visible {
+  top: 0.75rem;
+  color: #ffffff;
+  outline: 3px solid #f5a300 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 5px rgba(0, 43, 86, 0.3) !important;
+}
+
+/* Keyboard quick-jump bar across homepage cards (visible on keyboard focus) */
+.db-card-jump {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.db-card-jump--sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.db-card-jump--sr:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.75rem;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  padding: 0.65rem 0.85rem;
+  background: #ffffff;
+  border: 2px solid #002b56;
+  border-radius: 0.5rem;
+}
+
+.db-card-jump__label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #111827;
+  align-self: center;
+  margin-inline-end: 0.25rem;
+}
+
+.db-card-jump__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.375rem;
+  border: 1px solid #0052a3;
+  background: #f8fafc;
+  color: #002b56;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Universal high-visibility focus indicators on all focusable elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+.hamburger:focus-visible,
+[data-bs-toggle]:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.list-group-item:focus-visible,
+.accordion-button:focus-visible,
+.dropdown-item:focus-visible,
+.curriculum-switcher-tile:focus-visible {
+  outline: 3px solid #f5a300 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 5px rgba(0, 43, 86, 0.25) !important;
+}
+
+/* Prevent focus ring clipping inside overflow-clipped containers */
+.homepage-nav nav {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.homepage-nav .nav-link:focus-visible,
+.scroll-region__previous:focus-visible,
+.scroll-region__next:focus-visible,
+.list-group-item:focus-visible,
+.overflow-auto:focus-visible,
+#sidebar a:focus-visible,
+.dropdown-item:focus-visible {
+  outline-offset: -3px !important;
+  box-shadow: inset 0 0 0 2px #002b56 !important;
+  position: relative;
+  z-index: 3;
+}
+
+/* Scrollable card body indicator */
+.homepage-card .overflow-auto[tabindex="0"]:focus-visible {
+  outline: 3px solid #f5a300 !important;
+  outline-offset: -3px !important;
+  border-radius: 0.375rem;
+}
+
+/* Active card focus tracking */
+.homepage-card:focus-within {
+  box-shadow: 0 0 0 2px rgba(0, 82, 163, 0.28), 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06);
+}
+
+.homepage-card.db-card-focused {
+  box-shadow: 0 0 0 3px #f5a300, 0 0 0 6px rgba(0, 43, 86, 0.22);
+}
+
+/* Ensure custom controls have accessible pointer/focus affordances */
+.hamburger[role="button"],
+#student-switch-curriculum [data-bs-toggle="dropdown"],
+[data-bs-toggle="tooltip"][tabindex="0"],
+.scroll-region__previous,
+.scroll-region__next {
+  cursor: pointer;
+  border-radius: 0.375rem;
+}
+
+.hamburger[role="button"] {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-bs-toggle="tooltip"][tabindex="0"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  vertical-align: middle;
+}
+
+/* Savanna index.html cards focus polish */
+.page-card .card:focus-within {
+  border-color: #0052a3;
+  box-shadow: 0 0 0 3px rgba(0, 82, 163, 0.22);
+}

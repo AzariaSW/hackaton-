@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Career Gateway — Accessible Jobs | Savanna</title>
+    <link rel="stylesheet" href="../assets/css/typekit-xgz4ilr-css.css" />
+    <link rel="stylesheet" href="../assets/css/application_alx.css" media="all" />
+    <link rel="stylesheet" href="../assets/css/app.css" media="all" />
+    <link rel="stylesheet" href="../assets/css/static-page.css" media="all" />
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: #002b56;
+        color: #ffffff;
+        padding: 0.75rem 1rem;
+        z-index: 2000;
+        font-weight: 700;
+      }
+      .skip-link:focus {
+        left: 0.75rem;
+        top: 0.75rem;
+        outline: 3px solid #f5a300;
+      }
+      .db-host-shell {
+        padding: 5.5rem 1.25rem 3rem;
+        max-width: 56rem;
+        margin: 0 auto;
+      }
+      dialog {
+        max-width: 44rem;
+        width: calc(100% - 2rem);
+        border: 2px solid #111827;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+      }
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.55);
+      }
+      :focus-visible {
+        outline: 3px solid #f5a300;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body class="signed_in env_development notranslate" data-theme-suffix="_alx">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="header d-flex align-items-center position-fixed top-0 w-100 bg-white border-bottom" style="z-index: 1000">
+      <div class="header-left align-items-center d-flex px-3 w-100 justify-content-between">
+        <a class="logo-container p-1 d-inline-flex align-items-center gap-2 text-decoration-none" href="homepage-v1-paced.html">
+          <span class="logo d-inline-block" style="background-image: url('../assets/img/holberton-logo-full-alx.png'); width: 110px; height: 34px; background-size: contain; background-repeat: no-repeat;" aria-hidden="true"></span>
+          <span class="fw-semibold text-dark">Savanna Career Gateway</span>
+        </a>
+        <nav aria-label="Savanna jobs navigation" class="d-flex flex-wrap gap-2">
+          <a class="btn btn-outline-secondary btn-sm" href="homepage-v1-paced.html">Home</a>
+          <a class="btn btn-outline-secondary btn-sm" href="signup.html">Sign Up</a>
+          <a class="btn btn-outline-secondary btn-sm" href="profile.html">My Profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="db-host-shell">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <div>
+          <h1 class="h3 mb-1">Career Gateway — Accessible Jobs</h1>
+          <p class="text-body-secondary mb-0">Reuses <code>&lt;db-signup mode="job-apply"&gt;</code> and embeds <code>schema.org/JobPosting</code> JSON-LD.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label for="jobs-lang" class="form-label mb-0 fw-semibold">Language:</label>
+          <select id="jobs-lang" class="form-select" style="width: auto; min-height: 2.75rem;">
+            <option value="en" selected>English (en)</option>
+            <option value="am">አማርኛ (am)</option>
+          </select>
+        </div>
+      </div>
+
+      <section class="card mb-4" aria-label="Local support filter">
+        <div class="card-body">
+          <div class="alert alert-info mb-3" role="note">
+            <strong>Privacy guarantee:</strong> Filtering runs 100% inside your browser using your saved support choices. Nothing is sent to employers.
+          </div>
+          <label class="d-inline-flex align-items-center gap-2" style="min-height: 2.75rem; cursor: pointer;">
+            <input type="checkbox" id="filter-my-support" style="width: 1.25rem; height: 1.25rem;">
+            <span>Filter jobs matching my saved support needs (<span id="saved-support-summary">none saved</span>)</span>
+          </label>
+        </div>
+      </section>
+
+      <section id="jobs-container" class="vstack gap-3" aria-label="Job listings"></section>
+    </main>
+
+    <dialog id="apply-dialog" aria-labelledby="apply-title">
+      <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+        <h2 id="apply-title" class="h4 mb-0">Apply for Job</h2>
+        <button type="button" id="close-dialog" class="btn btn-outline-dark" style="min-height: 2.75rem;">Close</button>
+      </div>
+      <script src="/module/db-signup.js" defer></script>
+      <db-signup id="job-apply-widget" lang="en" mode="job-apply"></db-signup>
+    </dialog>
+
+    <script>
+      const SUPPORT_LABELS = {
+        screen_reader: 'Screen reader friendly',
+        large_text: 'Large text / magnification',
+        captions: 'Captioned meetings',
+        sign_language: 'Sign language support',
+        interpreter_am: 'Amharic / local interpreter',
+        more_time: 'Flexible deadlines / extra time'
+      };
+
+      let allJobs = [];
+      let currentLang = 'en';
+      const filterCheckbox = document.getElementById('filter-my-support');
+      const summarySpan = document.getElementById('saved-support-summary');
+      const jobsContainer = document.getElementById('jobs-container');
+      const applyDialog = document.getElementById('apply-dialog');
+      const applyTitle = document.getElementById('apply-title');
+      const applyWidget = document.getElementById('job-apply-widget');
+      const langSelect = document.getElementById('jobs-lang');
+
+      function getSavedSupport() {
+        try {
+          const raw = localStorage.getItem('db-signup:support-local');
+          return raw ? JSON.parse(raw) : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function updateSavedSummary() {
+        const saved = getSavedSupport();
+        summarySpan.textContent = saved.length > 0 ? saved.join(', ') : 'none saved yet';
+      }
+
+      function injectJobJsonLd(jobs) {
+        const ld = jobs.map((job) => ({
+          '@context': 'https://schema.org',
+          '@type': 'JobPosting',
+          title: job.title,
+          description: job.summary,
+          datePosted: job.datePosted,
+          employmentType: job.employmentType,
+          jobLocationType: job.remote ? 'TELECOMMUTE' : undefined,
+          hiringOrganization: { '@type': 'Organization', name: job.employer },
+          jobLocation: {
+            '@type': 'Place',
+            address: { '@type': 'PostalAddress', addressLocality: job.location, addressCountry: 'ET' }
+          },
+          jobBenefits: job.accommodations.map((a) => SUPPORT_LABELS[a] || a).join(', ')
+        }));
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(ld);
+        document.head.appendChild(script);
+      }
+
+      function renderJobs() {
+        const savedSupport = getSavedSupport();
+        const applyFilter = filterCheckbox.checked && savedSupport.length > 0;
+        const visible = applyFilter
+          ? allJobs.filter((j) => savedSupport.every((need) => j.accommodations.includes(need)))
+          : allJobs;
+
+        jobsContainer.innerHTML = '';
+        if (visible.length === 0) {
+          const p = document.createElement('p');
+          p.textContent = 'No demo jobs match all of your saved support filters. Uncheck the filter to view all jobs.';
+          jobsContainer.appendChild(p);
+          return;
+        }
+
+        for (const job of visible) {
+          const title = currentLang === 'am' && job.titleAm ? job.titleAm : job.title;
+          const summary = currentLang === 'am' && job.summaryAm ? job.summaryAm : job.summary;
+          const card = document.createElement('article');
+          card.className = 'card';
+          card.setAttribute('lang', currentLang);
+
+          const body = document.createElement('div');
+          body.className = 'card-body';
+
+          const h2 = document.createElement('h2');
+          h2.className = 'h5 card-title';
+          h2.textContent = title;
+          body.appendChild(h2);
+
+          const meta = document.createElement('p');
+          meta.className = 'text-body-secondary mb-2';
+          meta.textContent = `${job.employer} · ${job.location} · ${job.employmentType}`;
+          body.appendChild(meta);
+
+          const p = document.createElement('p');
+          p.textContent = summary;
+          body.appendChild(p);
+
+          const tags = document.createElement('div');
+          tags.className = 'd-flex flex-wrap gap-2 mb-3';
+          for (const acc of job.accommodations) {
+            const span = document.createElement('span');
+            span.className = 'badge text-bg-light border';
+            span.textContent = SUPPORT_LABELS[acc] || acc;
+            tags.appendChild(span);
+          }
+          body.appendChild(tags);
+
+          const actions = document.createElement('div');
+          actions.className = 'd-flex flex-wrap gap-2';
+
+          const listenBtn = document.createElement('button');
+          listenBtn.type = 'button';
+          listenBtn.className = 'btn btn-outline-dark';
+          listenBtn.style.minHeight = '2.75rem';
+          listenBtn.textContent = currentLang === 'am' ? '🔊 ማጠቃለያውን አዳምጥ' : '🔊 Listen to summary';
+          listenBtn.addEventListener('click', () => {
+            if (window.speechSynthesis) {
+              window.speechSynthesis.cancel();
+              const utt = new SpeechSynthesisUtterance(`${title}. ${summary}`);
+              utt.lang = currentLang === 'am' ? 'am-ET' : 'en-US';
+              window.speechSynthesis.speak(utt);
+            }
+          });
+
+          const applyBtn = document.createElement('button');
+          applyBtn.type = 'button';
+          applyBtn.className = 'btn btn-primary';
+          applyBtn.style.minHeight = '2.75rem';
+          applyBtn.textContent = currentLang === 'am' ? 'አሁን ያመልክቱ' : 'Apply now';
+          applyBtn.addEventListener('click', () => {
+            applyTitle.textContent = `${currentLang === 'am' ? 'ማመልከቻ፡' : 'Apply:'} ${title}`;
+            applyDialog.showModal();
+          });
+
+          actions.appendChild(listenBtn);
+          actions.appendChild(applyBtn);
+          body.appendChild(actions);
+          card.appendChild(body);
+          jobsContainer.appendChild(card);
+        }
+      }
+
+      langSelect.addEventListener('change', () => {
+        currentLang = langSelect.value;
+        document.documentElement.lang = currentLang;
+        applyWidget.setAttribute('lang', currentLang);
+        renderJobs();
+      });
+
+      document.getElementById('close-dialog').addEventListener('click', () => applyDialog.close());
+      filterCheckbox.addEventListener('change', renderJobs);
+
+      fetch('/demo/data/jobs.json')
+        .then((r) => r.json())
+        .then((jobs) => {
+          allJobs = jobs;
+          updateSavedSummary();
+          injectJobJsonLd(jobs);
+          renderJobs();
+        });
+    </script>
+  </body>
+</html>

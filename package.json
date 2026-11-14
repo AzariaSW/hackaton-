@@ -1,0 +1,37 @@
+{
+  "name": "accessibility-onboarding-module",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "build:module": "node scripts/build-module.mjs",
+    "build": "node scripts/build-module.mjs && node --check src/server.js && node --check src/app.js && node --check module/db-signup.js && node --check module/src/component.js",
+    "lint": "find src module -name '*.js' -print0 | xargs -0 -n 1 node --check",
+    "test": "node --test",
+    "test:a11y": "node scripts/a11y-check.mjs",
+    "db:migrate": "node-pg-migrate up",
+    "db:migrate:down": "node-pg-migrate down",
+    "db:migrate:create": "node-pg-migrate new"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.23.1",
+    "pino": "^9.9.0",
+    "pino-http": "^10.5.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.0",
+    "jsdom": "^31.0.1",
+    "node-pg-migrate": "^7.6.0"
+  }
+}

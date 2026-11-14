@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Bridge - Accessible Onboarding Demo</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Ethiopic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+      background: #f5f7fa;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.75rem;
+    }
+
+    .description {
+      color: #374151;
+      margin: 0 0 1rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding: 0.875rem;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.75rem;
+    }
+
+    .controls label {
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .controls select, .controls a {
+      font: inherit;
+      font-size: 0.9375rem;
+      min-height: 2.75rem;
+      padding: 0.45rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 2px solid #6b7280;
+      background: #ffffff;
+      color: #111827;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .controls a:hover {
+      background: #eff6ff;
+      border-color: #0052a3;
+    }
+
+    #events {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.75rem;
+    }
+
+    #events h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    .event {
+      padding: 0.875rem;
+      margin: 0.65rem 0;
+      background: #f9fafb;
+      border-inline-start: 4px solid #0052a3;
+      border-radius: 0.35rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .event-support {
+      border-inline-start-color: #0f766e;
+    }
+
+    .event-label {
+      font-weight: 700;
+      color: #0052a3;
+    }
+
+    .event-support .event-label {
+      color: #0f766e;
+    }
+
+    pre {
+      margin: 0.4rem 0 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    :focus-visible {
+      outline: 3px solid #f5a300;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Digital Bridge Accessible Onboarding</h1>
+    <p class="description">Standalone proof page — zero frameworks, zero Bootstrap, one &lt;db-signup&gt; tag</p>
+  </header>
+
+  <nav class="controls" aria-label="Demo controls">
+    <label for="lang-select">Language:</label>
+    <select id="lang-select">
+      <option value="en">English (en)</option>
+      <option value="am">አማርኛ (am)</option>
+    </select>
+
+    <label for="mode-select">Flow:</label>
+    <select id="mode-select">
+      <option value="registration">Registration</option>
+      <option value="signin">Sign In</option>
+      <option value="profile-edit">Profile Edit</option>
+      <option value="job-apply">Job Application</option>
+    </select>
+
+    <a href="/savanna/pages/signup.html">Savanna Proof</a>
+    <a href="/demo/auth.html">Sign Up / Log In Portal</a>
+    <a href="/demo/jobs.html">Career Gateway Demo</a>
+    <a href="/docs">Level 2 API Docs</a>
+  </nav>
+
+  <main>
+    <script src="/module/db-signup.js" defer></script>
+    <db-signup id="signup-widget" lang="en" mode="registration" api="/api"></db-signup>
+
+    <section id="events" aria-label="Host Platform Events">
+      <h2>Host Platform Event Log (Privacy Separation Proof)</h2>
+      <p>Notice <code>db-signup:done</code> never contains private support preferences; those arrive separately in <code>db-signup:support</code>.</p>
+      <div id="event-log" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const widget = document.getElementById('signup-widget');
+    const langSelect = document.getElementById('lang-select');
+    const modeSelect = document.getElementById('mode-select');
+    const eventLog = document.getElementById('event-log');
+
+    langSelect.addEventListener('change', () => {
+      document.documentElement.lang = langSelect.value;
+      widget.setAttribute('lang', langSelect.value);
+    });
+
+    modeSelect.addEventListener('change', () => {
+      widget.setAttribute('mode', modeSelect.value);
+    });
+
+    function appendEvent(name, detail, extraClass) {
+      const div = document.createElement('div');
+      div.className = 'event' + (extraClass ? ' ' + extraClass : '');
+      const label = document.createElement('div');
+      label.className = 'event-label';
+      label.textContent = name;
+      const pre = document.createElement('pre');
+      pre.textContent = JSON.stringify(detail, null, 2);
+      div.appendChild(label);
+      div.appendChild(pre);
+      eventLog.prepend(div);
+    }
+
+    document.addEventListener('db-signup:done', (event) => {
+      appendEvent('db-signup:done (Profile only)', event.detail);
+    });
+
+    document.addEventListener('db-signup:signin', (event) => {
+      appendEvent('db-signup:signin (Sign-in request)', event.detail);
+    });
+
+    document.addEventListener('db-signup:support', (event) => {
+      appendEvent('db-signup:support (Separate sensitive payload)', event.detail, 'event-support');
+    });
+
+    document.addEventListener('db-signup:step', (event) => {
+      appendEvent('db-signup:step', event.detail);
+    });
+  </script>
+</body>
+</html>

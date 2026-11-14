@@ -1,0 +1,8 @@
+node_modules/
+.env
+/data/
+/uploads/
+*.log
+bun.lock
+/public/assets/aistudio/
+.DS_Store

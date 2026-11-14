@@ -1,0 +1,41 @@
+[
+  {
+    "id": "job-01",
+    "title": "Junior Front-End Accessibility Tester",
+    "titleAm": "ጀማሪ የፊት-ገጽ ተደራሽነት ፈታሽ",
+    "employer": "Addis Digital Studio",
+    "location": "Addis Ababa (Remote friendly)",
+    "employmentType": "FULL_TIME",
+    "remote": true,
+    "datePosted": "2026-11-14",
+    "summary": "Test web pages with keyboard and screen readers, write clear bug reports in English or Amharic.",
+    "summaryAm": "ድረ-ገጾችን በቁልፍ ሰሌዳ እና በስክሪን አንባቢ መፈተሽ እና ግልጽ ሪፖርት መጻፍ።",
+    "accommodations": ["screen_reader", "large_text", "more_time", "captions"]
+  },
+  {
+    "id": "job-02",
+    "title": "Virtual Customer Support Specialist",
+    "titleAm": "የደንበኞች ድጋፍ ባለሙያ (በርቀት)",
+    "employer": "EthioConnect PLC",
+    "location": "Hawassa / Remote",
+    "employmentType": "PART_TIME",
+    "remote": true,
+    "datePosted": "2026-11-14",
+    "summary": "Answer learner and customer messages by chat and email with flexible shift schedules.",
+    "summaryAm": "የተማሪዎችን እና የደንበኞችን መልእክቶች በጽሁፍ እና በኢሜይል መመለስ።",
+    "accommodations": ["captions", "sign_language", "interpreter_am", "more_time"]
+  },
+  {
+    "id": "job-03",
+    "title": "Data Labeling & Quality Reviewer",
+    "titleAm": "የመረጃ አደራጅ እና ጥራት ገምጋሚ",
+    "employer": "Sheba AI Collective",
+    "location": "Addis Ababa",
+    "employmentType": "CONTRACTOR",
+    "remote": false,
+    "datePosted": "2026-11-14",
+    "summary": "Review Amharic audio transcripts and verify text accuracy in a quiet office with screen magnification.",
+    "summaryAm": "የአማርኛ ጽሁፎችን ትክክለኛነት መገምገም እና ማረጋገጥ።",
+    "accommodations": ["large_text", "screen_reader", "interpreter_am"]
+  }
+]

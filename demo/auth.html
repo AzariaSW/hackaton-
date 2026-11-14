@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Bridge - Sign Up &amp; Log In</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Ethiopic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+      background: #f5f7fa;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.65rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .nav-links a, .nav-links select {
+      font: inherit;
+      font-weight: 600;
+      min-height: 2.75rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 0.5rem;
+      border: 2px solid #6b7280;
+      background: #ffffff;
+      color: #111827;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tab-btn {
+      font: inherit;
+      font-weight: 700;
+      min-height: 2.75rem;
+      padding: 0.6rem 1.15rem;
+      border-radius: 0.5rem;
+      border: 2px solid #6b7280;
+      background: #ffffff;
+      color: #111827;
+      cursor: pointer;
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background: #0052a3;
+      border-color: #0052a3;
+      color: #ffffff;
+    }
+
+    .panel {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+
+    .panel[hidden] {
+      display: none;
+    }
+
+    .form-field {
+      margin-bottom: 1rem;
+    }
+
+    .form-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .form-field input {
+      width: 100%;
+      box-sizing: border-box;
+      font: inherit;
+      min-height: 2.75rem;
+      padding: 0.6rem 0.85rem;
+      border: 2px solid #6b7280;
+      border-radius: 0.5rem;
+    }
+
+    .btn {
+      font: inherit;
+      font-weight: 700;
+      min-height: 2.75rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      border: 2px solid #0052a3;
+      background: #0052a3;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #111827;
+      border-color: #6b7280;
+    }
+
+    .btn-danger {
+      background: #b00020;
+      border-color: #b00020;
+      color: #ffffff;
+    }
+
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      margin: 0.75rem 0;
+      font-weight: 600;
+    }
+
+    .alert-error {
+      background: #fef2f2;
+      border-inline-start: 4px solid #b00020;
+      color: #7f1d1d;
+    }
+
+    .alert-ok {
+      background: #f0fdf4;
+      border-inline-start: 4px solid #15803d;
+      color: #14532d;
+    }
+
+    .card-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 0.875rem;
+      background: #f1f5f9;
+      padding: 0.75rem;
+      border-radius: 0.35rem;
+    }
+
+    :focus-visible {
+      outline: 3px solid #f5a300;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Digital Bridge — Sign Up &amp; Log In</h1>
+      <p style="margin:0.25rem 0 0; color:#374151;">Accessible learner sign-up, passwordless/PIN sign-in, and host company portal</p>
+    </div>
+    <div class="nav-links">
+      <label for="page-lang" class="sr-only" style="position:absolute;left:-9999px;">Language</label>
+      <select id="page-lang" aria-label="Language">
+        <option value="en">English (en)</option>
+        <option value="am">አማርኛ (am)</option>
+      </select>
+      <a href="/">Component Demo</a>
+      <a href="/demo/jobs.html">Jobs</a>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Authentication sections">
+    <button class="tab-btn" role="tab" id="tab-signup" aria-selected="true" aria-controls="panel-signup">Learner Sign Up</button>
+    <button class="tab-btn" role="tab" id="tab-login" aria-selected="false" aria-controls="panel-login">Learner Log In</button>
+    <button class="tab-btn" role="tab" id="tab-company" aria-selected="false" aria-controls="panel-company">Host Company Portal</button>
+  </div>
+
+  <main>
+    <section id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup">
+      <h2>Create Your Learner Account</h2>
+      <p>Complete the accessible <code>&lt;db-signup&gt;</code> flow below. Optionally add a memorable PIN on the host side so you can log back in later.</p>
+
+      <div class="form-field">
+        <label for="signup-pin">Optional Host PIN / Passphrase (min 4 characters — stays on host only)</label>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <input id="signup-pin" type="password" autocomplete="new-password" placeholder="Optional 4+ character PIN" style="flex:1 1 14rem;">
+          <button type="button" id="toggle-signup-pin" class="btn btn-outline">Show PIN</button>
+        </div>
+      </div>
+
+      <script src="/module/db-signup.js" defer></script>
+      <db-signup id="signup-component" lang="en" mode="registration"></db-signup>
+      <div id="signup-status" role="alert"></div>
+    </section>
+
+    <section id="panel-login" class="panel" role="tabpanel" aria-labelledby="tab-login" hidden>
+      <h2>Returning Learner Log In</h2>
+      <p>Sign in with your Ethiopian phone number (09..., 07..., or +251...) and either your PIN or your partner referral code (<code>DB-REF-...</code>). No CAPTCHA or timed SMS codes.</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-field">
+          <label for="login-phone">Phone number</label>
+          <input id="login-phone" type="tel" autocomplete="tel" placeholder="0912345678" aria-describedby="login-phone-err" required>
+          <p id="login-phone-err" class="alert alert-error" role="alert" hidden></p>
+        </div>
+        <div class="form-field">
+          <label for="login-pin">Host PIN / Passphrase (if you set one)</label>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <input id="login-pin" type="password" autocomplete="current-password" placeholder="Your PIN" style="flex:1 1 14rem;">
+            <button type="button" id="toggle-login-pin" class="btn btn-outline">Show PIN</button>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="login-referral">Or Partner Referral Code</label>
+          <input id="login-referral" type="text" placeholder="DB-REF-XXXXXXXX">
+        </div>
+        <button type="submit" class="btn">Log In</button>
+      </form>
+
+      <div id="login-status" role="alert"></div>
+
+      <div id="learner-dashboard" class="card-box" hidden>
+        <h3>Signed-In Learner Dashboard</h3>
+        <pre id="learner-profile-json"></pre>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem;">
+          <button type="button" id="btn-export-data" class="btn btn-outline">Export My Data (JSON)</button>
+          <button type="button" id="btn-logout" class="btn btn-outline">Log Out</button>
+          <button type="button" id="btn-delete-account" class="btn btn-danger">Delete My Account</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-company" class="panel" role="tabpanel" aria-labelledby="tab-company" hidden>
+      <h2>Host Company Integration Portal (Level 2 PostgreSQL API)</h2>
+      <p>Register your platform or log in with your <code>X-API-Key</code> to manage credentials and view redacted audit events.</p>
+
+      <div class="card-box">
+        <h3>Register a New Host Company</h3>
+        <form id="company-register-form" novalidate>
+          <div class="form-field">
+            <label for="co-name">Company / Platform Name</label>
+            <input id="co-name" type="text" required placeholder="Savanna Learning" aria-describedby="co-name-err">
+            <p id="co-name-err" class="alert alert-error" role="alert" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="co-email">Developer Email</label>
+            <input id="co-email" type="email" required placeholder="dev@savanna.example" aria-describedby="co-email-err">
+            <p id="co-email-err" class="alert alert-error" role="alert" hidden></p>
+          </div>
+          <button type="submit" class="btn">Register &amp; Get API Key</button>
+        </form>
+        <div id="company-register-status" role="alert"></div>
+      </div>
+
+      <div class="card-box">
+        <h3>Log In with Company API Key</h3>
+        <form id="company-login-form">
+          <div class="form-field">
+            <label for="co-api-key">X-API-Key</label>
+            <input id="co-api-key" type="password" required placeholder="prefix.secret">
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="submit" class="btn">Log In to Portal</button>
+            <button type="button" id="btn-rotate-key" class="btn btn-outline" hidden>Rotate API Key</button>
+          </div>
+        </form>
+        <div id="company-login-status" role="alert"></div>
+        <pre id="company-info-json" hidden></pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+
+    function activateTab(tab) {
+      tabs.forEach((t) => {
+        const selected = t === tab;
+        t.setAttribute('aria-selected', String(selected));
+      });
+      panels.forEach((p) => {
+        p.hidden = p.id !== tab.getAttribute('aria-controls');
+      });
+    }
+
+    tabs.forEach((tab, idx) => {
+      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          const next = tabs[(idx + 1) % tabs.length];
+          next.focus();
+          activateTab(next);
+        } else if (e.key === 'ArrowLeft') {
+          const prev = tabs[(idx - 1 + tabs.length) % tabs.length];
+          prev.focus();
+          activateTab(prev);
+        }
+      });
+    });
+
+    document.getElementById('page-lang').addEventListener('change', (e) => {
+      document.documentElement.lang = e.target.value;
+      document.getElementById('signup-component').setAttribute('lang', e.target.value);
+    });
+
+    function wirePinToggle(btnId, inputId) {
+      const btn = document.getElementById(btnId);
+      const input = document.getElementById(inputId);
+      btn.addEventListener('click', () => {
+        const show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.textContent = show ? 'Hide PIN' : 'Show PIN';
+      });
+    }
+    wirePinToggle('toggle-signup-pin', 'signup-pin');
+    wirePinToggle('toggle-login-pin', 'login-pin');
+
+    let lastSupportChoices = [];
+    let currentToken = localStorage.getItem('db-host-token') || '';
+    let currentCompanyKey = '';
+
+    document.addEventListener('db-signup:support', async (e) => {
+      lastSupportChoices = e.detail?.support || [];
+      if (currentToken) {
+        await fetch('/api/v1/host/me/support', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${currentToken}` },
+          body: JSON.stringify({ support: lastSupportChoices })
+        });
+        await loadLearnerDashboard();
+      }
+    });
+
+    document.addEventListener('db-signup:done', async (e) => {
+      const statusEl = document.getElementById('signup-status');
+      const profile = e.detail?.profile || {};
+      const pin = document.getElementById('signup-pin').value.trim();
+
+      const res = await fetch('/api/v1/host/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: profile.name,
+          phone: profile.phone,
+          language: profile.language || 'en',
+          idRoute: profile.idRoute || 'national_id',
+          referralCode: e.detail?.referralCode || null,
+          pin: pin || undefined,
+          support: lastSupportChoices
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        statusEl.className = 'alert alert-error';
+        statusEl.textContent = data.error?.message || 'Sign up failed.';
+        return;
+      }
+
+      currentToken = data.token;
+      localStorage.setItem('db-host-token', currentToken);
+      statusEl.className = 'alert alert-ok';
+      statusEl.textContent = `Account created and signed in! ${data.learner.referralCode ? 'Referral code: ' + data.learner.referralCode : ''}`;
+      await loadLearnerDashboard();
+      activateTab(document.getElementById('tab-login'));
+    });
+
+    async function loadLearnerDashboard() {
+      const dash = document.getElementById('learner-dashboard');
+      const pre = document.getElementById('learner-profile-json');
+      if (!currentToken) {
+        dash.hidden = true;
+        return;
+      }
+      const res = await fetch('/api/v1/host/me', {
+        headers: { Authorization: `Bearer ${currentToken}` }
+      });
+      if (!res.ok) {
+        currentToken = '';
+        localStorage.removeItem('db-host-token');
+        dash.hidden = true;
+        return;
+      }
+      const data = await res.json();
+      pre.textContent = JSON.stringify(data, null, 2);
+      dash.hidden = false;
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById('login-status');
+      const phoneInput = document.getElementById('login-phone');
+      const phoneErr = document.getElementById('login-phone-err');
+      phoneErr.hidden = true;
+      phoneErr.textContent = '';
+      phoneInput.removeAttribute('aria-invalid');
+
+      if (!phoneInput.value.trim()) {
+        phoneErr.textContent = 'Please enter your Ethiopian phone number.';
+        phoneErr.hidden = false;
+        phoneInput.setAttribute('aria-invalid', 'true');
+        phoneInput.focus();
+        return;
+      }
+
+      const res = await fetch('/api/v1/host/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phoneInput.value,
+          pin: document.getElementById('login-pin').value || undefined,
+          referralCode: document.getElementById('login-referral').value || undefined
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        statusEl.className = 'alert alert-error';
+        statusEl.textContent = data.error?.message || 'Sign in failed.';
+        if (data.error?.code === 'INVALID_PHONE') {
+          phoneErr.textContent = data.error.message;
+          phoneErr.hidden = false;
+          phoneInput.setAttribute('aria-invalid', 'true');
+          phoneInput.focus();
+        }
+        return;
+      }
+      currentToken = data.token;
+      localStorage.setItem('db-host-token', currentToken);
+      statusEl.className = 'alert alert-ok';
+      statusEl.textContent = `Welcome back, ${data.learner.name}!`;
+      await loadLearnerDashboard();
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      if (currentToken) {
+        await fetch('/api/v1/host/logout', { method: 'POST', headers: { Authorization: `Bearer ${currentToken}` } });
+      }
+      currentToken = '';
+      localStorage.removeItem('db-host-token');
+      document.getElementById('login-status').className = 'alert alert-ok';
+      document.getElementById('login-status').textContent = 'You have been logged out.';
+      await loadLearnerDashboard();
+    });
+
+    document.getElementById('btn-delete-account').addEventListener('click', async () => {
+      if (!currentToken) return;
+      await fetch('/api/v1/host/me', { method: 'DELETE', headers: { Authorization: `Bearer ${currentToken}` } });
+      currentToken = '';
+      localStorage.removeItem('db-host-token');
+      document.getElementById('login-status').className = 'alert alert-ok';
+      document.getElementById('login-status').textContent = 'Your host demo account and data were deleted.';
+      await loadLearnerDashboard();
+    });
+
+    document.getElementById('btn-export-data').addEventListener('click', async () => {
+      if (!currentToken) return;
+      const res = await fetch('/api/v1/host/me', { headers: { Authorization: `Bearer ${currentToken}` } });
+      const data = await res.json();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-digital-bridge-data.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('company-register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById('company-register-status');
+      const nameInput = document.getElementById('co-name');
+      const emailInput = document.getElementById('co-email');
+      const nameErr = document.getElementById('co-name-err');
+      const emailErr = document.getElementById('co-email-err');
+
+      nameErr.hidden = true;
+      nameErr.textContent = '';
+      emailErr.hidden = true;
+      emailErr.textContent = '';
+      nameInput.removeAttribute('aria-invalid');
+      emailInput.removeAttribute('aria-invalid');
+
+      const nameVal = nameInput.value.trim();
+      const emailVal = emailInput.value.trim();
+      if (!nameVal) {
+        nameErr.textContent = 'Please enter a company or platform name.';
+        nameErr.hidden = false;
+        nameInput.setAttribute('aria-invalid', 'true');
+        nameInput.focus();
+        return;
+      }
+      if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        emailErr.textContent = 'Please enter a valid developer email address.';
+        emailErr.hidden = false;
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailInput.focus();
+        return;
+      }
+
+      const res = await fetch('/api/v1/companies/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: nameVal,
+          email: emailVal
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        statusEl.className = 'alert alert-error';
+        statusEl.textContent = data.error?.message || 'Company registration failed.';
+        return;
+      }
+      currentCompanyKey = data.apiKey;
+      document.getElementById('co-api-key').value = data.apiKey;
+      statusEl.className = 'alert alert-ok';
+      statusEl.textContent = `Registered! Copy your X-API-Key: ${data.apiKey}`;
+    });
+
+    async function fetchCompanyPortal(apiKey) {
+      const statusEl = document.getElementById('company-login-status');
+      const pre = document.getElementById('company-info-json');
+      const rotateBtn = document.getElementById('btn-rotate-key');
+      const [meRes, auditRes] = await Promise.all([
+        fetch('/api/v1/companies/me', { headers: { 'X-API-Key': apiKey } }),
+        fetch('/api/v1/companies/me/audit-events', { headers: { 'X-API-Key': apiKey } })
+      ]);
+      const me = await meRes.json();
+      if (!meRes.ok) {
+        statusEl.className = 'alert alert-error';
+        statusEl.textContent = me.error?.message || 'Invalid API key.';
+        pre.hidden = true;
+        rotateBtn.hidden = true;
+        return;
+      }
+      const audit = await auditRes.json();
+      currentCompanyKey = apiKey;
+      statusEl.className = 'alert alert-ok';
+      statusEl.textContent = `Signed in as ${me.company.name}`;
+      pre.textContent = JSON.stringify({ company: me.company, auditEvents: audit.events }, null, 2);
+      pre.hidden = false;
+      rotateBtn.hidden = false;
+    }
+
+    document.getElementById('company-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await fetchCompanyPortal(document.getElementById('co-api-key').value.trim());
+    });
+
+    document.getElementById('btn-rotate-key').addEventListener('click', async () => {
+      if (!currentCompanyKey) return;
+      const res = await fetch('/api/v1/companies/me/credentials/rotate', {
+        method: 'POST',
+        headers: { 'X-API-Key': currentCompanyKey }
+      });
+      const data = await res.json();
+      if (res.ok && data.apiKey) {
+        document.getElementById('co-api-key').value = data.apiKey;
+        await fetchCompanyPortal(data.apiKey);
+      }
+    });
+
+    loadLearnerDashboard();
+  </script>
+</body>
+</html>
