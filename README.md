@@ -16,6 +16,21 @@ npm run build   # builds module/db-signup.js and syntax-checks core files
 npm run dev     # starts server on http://localhost:3000
 ```
 
+### Combined React app and API
+
+The React app in `../frontend` is built into `../frontend/dist` and served by this Express app.
+From `backend/`, run `npm run build` and then `npm start`; the app and `/api/v1/*` endpoints share
+the same origin. For frontend development, run the API with `npm run dev`, then run
+`npm run dev` from `../frontend` (Vite proxies `/api` to `http://localhost:3000`).
+`docker compose up --build` builds and serves both parts together.
+
+Refugee FIN scanning uses browser-side English OCR. The image and full OCR text are not uploaded;
+the FIN read from the image and the learner-confirmed FIN are sent to
+`POST /api/v1/learners/refugee-id/check` for a temporary text comparison and are not persisted.
+A match does not prove document authenticity or identity. Manual FIN entry is accepted but cannot
+be verified against an external registry. A trusted RRS/AR verification API and its response
+contract must be provided before authoritative identity checks can be implemented.
+
 Local dev URLs (`http://localhost:3000`):
 - Standalone blank page proof: `http://localhost:3000/` (`demo/blank.html`)
 - Savanna starter integration:

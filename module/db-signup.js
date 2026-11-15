@@ -20,8 +20,7 @@ const SPOKEN_DIGIT_MAP = {
   'አንድ': '1', 'ሁለት': '2', 'ሶስት': '3', 'ሦስት': '3',
   'አራት': '4', 'አምስት': '5', 'ስድስት': '6', 'ሰባት': '7',
   'ስምንት': '8', 'ዘጠኝ': '9'
-};
-function convertSpokenDigits(input) {
+};function convertSpokenDigits(input) {
   const raw = String(input ?? '').trim();
   if (!raw) return '';
   const tokens = raw.toLowerCase().split(/\s+/);
@@ -38,15 +37,12 @@ function convertSpokenDigits(input) {
     }
   }
   return matchedWord ? converted : raw;
-}
-function cleanPhoneInput(value) {
+}function cleanPhoneInput(value) {
   return String(value ?? '').replace(/[\s()-]/g, '').trim();
-}
-function isValidEthiopianPhone(value) {
+}function isValidEthiopianPhone(value) {
   const cleaned = cleanPhoneInput(value);
   return /^(\+251|251|0)(9|7)[0-9]{8}$/.test(cleaned);
-}
-function normalizeEthiopianPhone(value) {
+}function normalizeEthiopianPhone(value) {
   const cleaned = cleanPhoneInput(value);
   if (!isValidEthiopianPhone(cleaned)) {
     return null;
@@ -111,8 +107,7 @@ const registrationFlow = {
       ]
     }
   ]
-};
-const signinFlow = {
+};const signinFlow = {
   key: 'signin',
   questions: [
     {
@@ -140,8 +135,7 @@ const signinFlow = {
       voiceInput: true
     }
   ]
-};
-const profileEditFlow = {
+};const profileEditFlow = {
   key: 'profile-edit',
   questions: [
     {
@@ -161,8 +155,7 @@ const profileEditFlow = {
       voiceInput: true
     }
   ]
-};
-const jobApplyFlow = {
+};const jobApplyFlow = {
   key: 'job-apply',
   questions: [
     {
@@ -195,8 +188,7 @@ const jobApplyFlow = {
       voiceInput: true
     }
   ]
-};
-const flows = {
+};const flows = {
   registration: registrationFlow,
   signin: signinFlow,
   'profile-edit': profileEditFlow,
@@ -442,8 +434,7 @@ class StorageManager {
     }
     return this.memoryFallback.get('ui_prefs') || null;
   }
-}
-const storage = new StorageManager();
+}const storage = new StorageManager();
 
   // --- module/src/utils/voice.js ---
 class VoiceManager {
@@ -960,8 +951,7 @@ function createSubmissionId() {
     return crypto.randomUUID();
   }
   return `sub_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-}
-class DbSignupComponent {
+}class DbSignupComponent {
   constructor(hostElement) {
     this.host = hostElement;
     this.shadow = hostElement.shadowRoot || hostElement.attachShadow({ mode: 'open' });

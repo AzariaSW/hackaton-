@@ -2,7 +2,7 @@ import { app } from './app.js';
 import { logger } from './config/logger.js';
 import { closePool } from './db/database.js';
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 const HOST = '0.0.0.0';
 
 let server;

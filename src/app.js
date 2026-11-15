@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import helmet from 'helmet';
@@ -16,6 +17,7 @@ import { notFound, errorHandler } from './middleware/errors.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
+const frontendDist = path.resolve(rootDir, '..', 'frontend', 'dist');
 
 export const app = express();
 app.disable('x-powered-by');
@@ -87,12 +89,22 @@ app.use('/module', express.static(path.join(rootDir, 'module')));
 app.use('/demo', express.static(path.join(rootDir, 'demo')));
 app.use('/savanna', express.static(path.join(rootDir, 'savanna')));
 app.get('/', (_req, res) => {
-  res.sendFile(path.join(rootDir, 'demo', 'blank.html'));
+  const entry = path.join(frontendDist, 'index.html');
+  res.sendFile(fs.existsSync(entry) ? entry : path.join(rootDir, 'demo', 'blank.html'));
 });
 
 app.use('/api/v1/companies', companiesRouter);
 app.use('/api/v1/learners', learnersRouter);
 app.use('/api/v1/webhooks', webhooksRouter);
 app.use('/api/v1/host', hostAuthRouter);
+if (fs.existsSync(path.join(frontendDist, 'index.html'))) {
+  app.use(express.static(frontendDist));
+  app.get(/.*/, (req, res, next) => {
+    if (req.path.startsWith('/api/')) return next();
+    res.sendFile(path.join(frontendDist, 'index.html'), (err) => {
+      if (err) next(err);
+    });
+  });
+}
 app.use(notFound);
 app.use(errorHandler);

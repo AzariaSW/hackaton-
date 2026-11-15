@@ -123,6 +123,37 @@ paths:
           description: Learner relay accepted
         '400':
           description: Validation error
+  /api/v1/learners/refugee-id/check:
+    post:
+      summary: Compare a locally scanned refugee ID FIN with the learner-confirmed FIN
+      description: >
+        Compares the two supplied strings without storing them. A manual-only entry is accepted
+        but is not verified. A text match does not establish document authenticity or identity.
+        The document image and OCR text must not be sent to this endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fin]
+              properties:
+                fin: { type: string, minLength: 1, maxLength: 64, description: Learner-confirmed FIN }
+                documentFin: { type: string, minLength: 1, maxLength: 64, description: FIN extracted on-device from the document }
+      responses:
+        '200':
+          description: Manual entry status or text comparison result; no identity verification
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, textMatch, authenticityVerified]
+                properties:
+                  status: { type: string, enum: [manual_entry, text_match, mismatch] }
+                  textMatch: { type: boolean, nullable: true }
+                  authenticityVerified: { type: boolean, enum: [false] }
+        '400':
+          description: Invalid FIN request
   /api/v1/learners/{id}:
     patch:
       summary: Update learner profile fields

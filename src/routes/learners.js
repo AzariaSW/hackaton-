@@ -32,6 +32,39 @@ const supportSchema = z.object({
   support: z.array(z.string().trim().min(1).max(60)).default([]),
 });
 
+const refugeeIdCheckSchema = z.object({
+  fin: z.string().trim().min(1).max(64),
+  documentFin: z.string().trim().min(1).max(64).optional(),
+});
+
+function normalizeFin(value) {
+  return value.normalize('NFKC').toLocaleUpperCase('en').replace(/[^\p{L}\p{N}]/gu, '');
+}
+
+router.post('/refugee-id/check', (req, res, next) => {
+  try {
+    const input = refugeeIdCheckSchema.parse(req.body);
+    if (!input.documentFin) {
+      return res.json({
+        status: 'manual_entry',
+        textMatch: null,
+        authenticityVerified: false,
+      });
+    }
+
+    const enteredFin = normalizeFin(input.fin);
+    const documentFin = normalizeFin(input.documentFin);
+    const textMatch = Boolean(enteredFin && documentFin && enteredFin === documentFin);
+    return res.json({
+      status: textMatch ? 'text_match' : 'mismatch',
+      textMatch,
+      authenticityVerified: false,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   try {
     const idempotencyKey = req.get('idempotency-key');
